@@ -1,7 +1,8 @@
-const cors = require('cors')
-const express= require('express')
+const cors = require('cors');
+const express= require('express');
 
 const app=express()
+
 app.use(express.json())
 
 app.use(express.urlencoded({
@@ -19,7 +20,7 @@ app.use(function(request,response,next){
     next();
 })
 
-const PORT_NUMBER=61550;
+const PORT_NUMBER=61552;
 
 app.use('/', require('./route')); 
 
