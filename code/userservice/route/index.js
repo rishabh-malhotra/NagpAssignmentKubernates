@@ -1,16 +1,13 @@
 const { Router } = require('express')
 const router = Router();
-const fs = require('fs');
-var userData;
 
-fs.readFile(__dirname + '\\users.json', 'utf-8',function(err,data){
-    if(err) console.log(err)
-    
-    userData=data
-    console.log(data)
-});
+let userData={
+    "name": "Rishabh",
+    "age": "23",
+    "email": "rishabh.malhotra@nagarro.com"  
+  }
 
-router.get('/users/:id', async (request, response) => {
+router.get('/user/:id', async (request, response) => {
 
     try
     {

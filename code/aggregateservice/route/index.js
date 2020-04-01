@@ -2,6 +2,9 @@ const { Router } = require('express')
 const router = Router();
 const request = require('request');
 
+const USER_SERVICE_URL = "userservice-deployment.default.svc.cluster.local"
+const ORDER_SERVICE_URL = "orderservice-deployment.default.svc.cluster.local"
+
 
 router.get('/orderdetails/:id', async (request, response) => {
 
@@ -30,7 +33,7 @@ router.get('/orderdetails/:id', async (request, response) => {
 
 const getUserData = (id) => {
  return new Promise(function(resolve, reject) {
-   request.get(`http://${process.env.userServiceURL}/users/${id}`, function(error, response, body) {
+   request.get(`http://${USER_SERVICE_URL}/user/${id}`, function(error, response, body) {
      if (error) {
        reject(error);
        console.log(error)
@@ -41,11 +44,9 @@ const getUserData = (id) => {
  })
 }
 
-
-
 const getOrdersData = (id) => {
 return new Promise(function(resolve, reject) {
-  request.get(`http://${process.env.orderServiceURL}/orders/${id}`, function(error, response, body) {
+  request.get(`http://${ORDER_SERVICE_URL}/orders/${id}`, function(error, response, body) {
     if (error) {
       reject(error);
       console.log(error)

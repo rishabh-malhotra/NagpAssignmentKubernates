@@ -1,12 +1,21 @@
 const { Router } = require('express')
 const router = Router();
-const fs = require('fs');
-var ordersData;
-fs.readFile(__dirname + '\\orders.json', 'utf-8',function(err,data){
-    if(err) console.log(err)
-    ordersData=data
-    console.log(data)
-});
+
+
+let ordersData={
+        "orders": [
+          {
+            "orderId": 1,
+            "orderAmount": 250,
+            "orderDate": "14-Apr-2020"
+          },
+          {
+            "orderId": 2,
+            "orderAmount": 450,
+            "orderDate": "15-Apr-2020"
+          }
+        ]      
+    }
 
 router.get('/orders/:id', async (request, response) => {
 
