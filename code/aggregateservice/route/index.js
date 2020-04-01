@@ -9,14 +9,14 @@ router.get('/orderdetails/:id', async (request, response) => {
     {
         
         let id = request.params.id;
-        console.log(id)
+        console.log("Id for which data is requested in aggrgate service:"+id)
         
-        let userDetails = await getUserData(id);
-        let orderDetails = await getOrdersData(id);
+        let userData = await getUserData(id);
+        let orderData = await getOrdersData(id);
 
         let aggregateData={
-            "userDetails": JSON.parse(userDetails),
-            "orders": JSON.parse(orderDetails).orders
+            "userDetails": JSON.parse(userData),
+            "orders": JSON.parse(orderData).orders
         };            
         response.status(200).send(aggregateData);
     }
@@ -30,9 +30,10 @@ router.get('/orderdetails/:id', async (request, response) => {
 
 const getUserData = (id) => {
  return new Promise(function(resolve, reject) {
-   request.get(`http://localhost:61550/users/${id}`, function(error, response, body) {
+   request.get(`http://${process.env.userServiceURL}/users/${id}`, function(error, response, body) {
      if (error) {
        reject(error);
+       console.log(error)
      } else {
        resolve(body);
      }
@@ -40,11 +41,14 @@ const getUserData = (id) => {
  })
 }
 
+
+
 const getOrdersData = (id) => {
 return new Promise(function(resolve, reject) {
-  request.get(`http://localhost:61551/orders/${id}`, function(error, response, body) {
+  request.get(`http://${process.env.orderServiceURL}/orders/${id}`, function(error, response, body) {
     if (error) {
       reject(error);
+      console.log(error)
     } else {
       resolve(body);
     }
